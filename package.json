@@ -1,0 +1,39 @@
+{
+  "name": "marketlens",
+  "version": "1.0.0",
+  "description": "盘镜 MarketLens — 免费开源的中文行情终端。行情数据来自 Yahoo Finance，界面参考 Bloomberg / LSEG Workspace 的专业终端范式。",
+  "type": "module",
+  "license": "MIT",
+  "main": "server.js",
+  "keywords": [
+    "stock-market",
+    "terminal",
+    "yahoo-finance",
+    "open-source",
+    "finance",
+    "chinese"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "snapshot": "node scripts/refresh-snapshot.mjs",
+    "test": "node --test tests/*.test.js",
+    "lint": "node scripts/check-syntax.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celinedelrey1019-cpu/marketlens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/celinedelrey1019-cpu/marketlens/issues"
+  },
+  "homepage": "https://github.com/celinedelrey1019-cpu/marketlens#readme",
+  "keywords_cn": [
+    "行情终端",
+    "股票",
+    "开源"
+  ]
+}

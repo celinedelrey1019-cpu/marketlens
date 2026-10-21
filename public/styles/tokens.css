@@ -1,0 +1,139 @@
+/* ==========================================================================
+   盘镜 MarketLens — 设计令牌
+   视觉范式参考 Bloomberg Terminal / LSEG Workspace / S&P Global：
+   近黑底、细发丝线、等宽表格数字、极小号大写拉丁微标签、直角面板。
+   ========================================================================== */
+
+:root {
+  /* 字体 —— 数字一律等宽并对齐，保证列能扫读 */
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+
+  /* 字号阶梯 —— 终端风格，整体偏小 */
+  --fs-micro: 9px;
+  --fs-tiny: 10px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 15px;
+  --fs-xl: 19px;
+  --fs-2xl: 26px;
+  --fs-3xl: 34px;
+
+  /* 间距 */
+  --sp-1: 2px;
+  --sp-2: 4px;
+  --sp-3: 6px;
+  --sp-4: 8px;
+  --sp-5: 12px;
+  --sp-6: 16px;
+  --sp-7: 22px;
+  --sp-8: 30px;
+
+  --radius: 2px;
+  --radius-lg: 3px;
+
+  --rail-w: 128px;
+  --monitor-w: 322px;
+  --topbar-h: 46px;
+  --ticker-h: 28px;
+  --status-h: 24px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ── 深色主题（默认）──────────────────────────────────────────── */
+html[data-theme="dark"] {
+  --bg: #06080c;
+  --bg-grad: radial-gradient(1200px 500px at 78% -8%, #101a2b 0%, transparent 62%);
+  --panel: #0c111a;
+  --panel-2: #101722;
+  --panel-3: #151d2b;
+  --panel-hover: #1a2434;
+
+  --line: #1a2331;
+  --line-2: #26324a;
+  --line-3: #36455f;
+
+  --fg: #c9d5e6;
+  --fg-2: #8496ae;
+  --fg-3: #56657c;
+  --fg-4: #3b4859;
+
+  --amber: #ffb020;
+  --amber-2: #c07d09;
+  --amber-glow: rgba(255, 176, 32, 0.12);
+  --cyan: #3ec9e8;
+  --violet: #8f82f5;
+  --teal: #2fb8a6;
+
+  --up: #ff4d4f;
+  --down: #0fc17e;
+  --flat: #6d7d94;
+
+  --up-soft: rgba(255, 77, 79, 0.14);
+  --down-soft: rgba(15, 193, 126, 0.13);
+
+  --grid: rgba(255, 255, 255, 0.032);
+  --shadow: 0 10px 34px rgba(0, 0, 0, 0.62);
+  --overlay: rgba(3, 5, 9, 0.72);
+  --scroll-thumb: #253147;
+}
+
+/* ── 浅色主题（纸白终端）──────────────────────────────────────── */
+html[data-theme="light"] {
+  --bg: #eef1f5;
+  --bg-grad: radial-gradient(1200px 500px at 78% -8%, #dfe7f2 0%, transparent 62%);
+  --panel: #ffffff;
+  --panel-2: #f7f9fc;
+  --panel-3: #eef2f7;
+  --panel-hover: #e6ecf5;
+
+  --line: #d3dae4;
+  --line-2: #b9c4d3;
+  --line-3: #97a6bb;
+
+  --fg: #16202e;
+  --fg-2: #4a5a70;
+  --fg-3: #6c7b90;
+  --fg-4: #93a1b4;
+
+  --amber: #b8790a;
+  --amber-2: #8a5a05;
+  --amber-glow: rgba(184, 121, 10, 0.1);
+  --cyan: #0e7c96;
+  --violet: #5b4bc4;
+  --teal: #107a6d;
+
+  --up: #d92b2b;
+  --down: #07864f;
+  --flat: #6c7b90;
+
+  --up-soft: rgba(217, 43, 43, 0.1);
+  --down-soft: rgba(7, 134, 79, 0.1);
+
+  --grid: rgba(10, 20, 35, 0.045);
+  --shadow: 0 10px 30px rgba(20, 35, 60, 0.16);
+  --overlay: rgba(24, 34, 48, 0.4);
+  --scroll-thumb: #bcc7d6;
+}
+
+/* ── 涨跌配色方向 ────────────────────────────────────────────── */
+html[data-direction="cn"] {
+  --up: #ff4d4f;
+  --down: #0fc17e;
+}
+html[data-direction="intl"] {
+  --up: #0fc17e;
+  --down: #ff4d4f;
+}
+html[data-theme="light"][data-direction="cn"] {
+  --up: #d92b2b;
+  --down: #07864f;
+}
+html[data-theme="light"][data-direction="intl"] {
+  --up: #07864f;
+  --down: #d92b2b;
+}

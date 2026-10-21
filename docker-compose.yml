@@ -1,0 +1,19 @@
+services:
+  marketlens:
+    build: .
+    image: marketlens:latest
+    container_name: marketlens
+    ports:
+      - "4173:4173"
+    environment:
+      # 遇到 Yahoo 限流就调大这个间隔（毫秒）
+      YF_MIN_GAP_MS: "900"
+      YF_MAX_CONCURRENT: "2"
+      YF_COOLDOWN_MS: "4000"
+    volumes:
+      # 行情缓存落盘，重启后不用重新拉
+      - marketlens-cache:/app/.cache
+    restart: unless-stopped
+
+volumes:
+  marketlens-cache:

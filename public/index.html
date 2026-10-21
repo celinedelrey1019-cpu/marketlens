@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-direction="cn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>盘镜 MarketLens · 免费开源中文行情终端</title>
+  <meta name="description" content="盘镜 MarketLens 是一个免费开源的中文行情终端：实时报价、K 线与技术指标、板块热力图、自选股与价格提醒，行情数据来自 Yahoo Finance。" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- ── 顶栏 ───────────────────────────────────────────── -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">盘</span>
+        <span class="brand-text">
+          <b>盘镜</b>
+          <i>MARKETLENS</i>
+        </span>
+      </div>
+
+      <div class="session-leds" id="session-leds" aria-label="各市场交易状态"></div>
+
+      <div class="topbar-tools">
+        <button class="cmdk-trigger" id="cmdk-trigger" type="button" title="全局搜索 (⌘K)">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 1a6 6 0 1 0 3.67 10.74l3.29 3.29 1.06-1.06-3.29-3.29A6 6 0 0 0 7 1Zm0 1.5A4.5 4.5 0 1 1 7 11.5 4.5 4.5 0 0 1 7 2.5Z"/></svg>
+          <span>搜索代码 / 命令</span>
+          <kbd>⌘K</kbd>
+        </button>
+
+        <button class="icon-btn" id="updown-toggle" type="button" title="切换涨跌配色（红涨绿跌 / 绿涨红跌）">
+          <span class="updown-glyph" id="updown-glyph">红涨</span>
+        </button>
+
+        <button class="icon-btn" id="theme-toggle" type="button" title="切换深色 / 浅色主题">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11.5A3.5 3.5 0 1 0 8 4.5a3.5 3.5 0 0 0 0 7ZM8 0a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1Zm0 13a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1ZM16 8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM3 8a1 1 0 0 1-1 1H1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm11.95-5.95a1 1 0 0 1 0 1.41l-.7.71a1 1 0 1 1-1.42-1.42l.71-.7a1 1 0 0 1 1.41 0ZM4.6 13.32a1 1 0 0 1 0 1.41l-.71.71a1 1 0 1 1-1.41-1.41l.7-.71a1 1 0 0 1 1.42 0Zm8.63 2.13a1 1 0 0 1-1.42 0l-.7-.71a1 1 0 1 1 1.41-1.41l.71.7a1 1 0 0 1 0 1.42ZM5.31 2.34a1 1 0 0 1-1.41 0l-.71-.7A1 1 0 1 1 4.6.22l.7.71a1 1 0 0 1 0 1.41Z"/></svg>
+        </button>
+
+        <div class="clock">
+          <span class="clock-time" id="clock-time">--:--:--</span>
+          <span class="clock-zone" id="clock-zone">北京时间</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── 行情跑马灯 ─────────────────────────────────────── -->
+    <div class="ticker" id="ticker" aria-label="行情跑马灯">
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+
+    <!-- ── 工作区 ─────────────────────────────────────────── -->
+    <main class="workspace">
+      <nav class="rail" id="rail" aria-label="主导航">
+        <div class="rail-group">
+          <p class="rail-label">工作台</p>
+          <a class="rail-item" href="#/overview" data-view="overview">
+            <span class="rail-cn">总览</span><span class="rail-en">OVERVIEW</span>
+          </a>
+          <a class="rail-item" href="#/quote" data-view="quote">
+            <span class="rail-cn">行情</span><span class="rail-en">QUOTE</span>
+          </a>
+          <a class="rail-item" href="#/watchlist" data-view="watchlist">
+            <span class="rail-cn">自选</span><span class="rail-en">WATCHLIST</span>
+          </a>
+          <a class="rail-item" href="#/movers" data-view="movers">
+            <span class="rail-cn">榜单</span><span class="rail-en">MOVERS</span>
+          </a>
+        </div>
+
+        <div class="rail-group">
+          <p class="rail-label">市场</p>
+          <div class="rail-markets" id="rail-markets"></div>
+        </div>
+
+        <div class="rail-foot">
+          <div class="rail-foot-row"><span>数据源</span><b id="rail-source">Yahoo Finance</b></div>
+          <div class="rail-foot-row"><span>版本</span><b id="rail-version">1.0.0</b></div>
+          <a class="rail-github" href="https://github.com/celinedelrey1019-cpu/marketlens" target="_blank" rel="noopener">
+            GitHub 开源仓库 ↗
+          </a>
+        </div>
+      </nav>
+
+      <section class="center" id="center" aria-live="polite"></section>
+
+      <aside class="monitor" id="monitor" aria-label="监控面板"></aside>
+    </main>
+
+    <!-- ── 状态栏 ─────────────────────────────────────────── -->
+    <footer class="statusbar" id="statusbar">
+      <span class="status-cell" id="status-connection"><i class="dot"></i>连接中…</span>
+      <span class="status-cell" id="status-source">数据源 —</span>
+      <span class="status-cell" id="status-updated">上次刷新 —</span>
+      <span class="status-cell" id="status-countdown">自动刷新 —</span>
+      <span class="status-cell status-right" id="status-note">盘镜 MarketLens · 免费开源 · 行情仅供参考，不构成投资建议</span>
+    </footer>
+  </div>
+
+  <!-- ── 命令面板 ─────────────────────────────────────────── -->
+  <div class="cmdk" id="cmdk" hidden>
+    <div class="cmdk-backdrop" data-cmdk-close></div>
+    <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="全局搜索">
+      <div class="cmdk-input-row">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 1a6 6 0 1 0 3.67 10.74l3.29 3.29 1.06-1.06-3.29-3.29A6 6 0 0 0 7 1Zm0 1.5A4.5 4.5 0 1 1 7 11.5 4.5 4.5 0 0 1 7 2.5Z"/></svg>
+        <input id="cmdk-input" type="text" placeholder="输入代码 / 名称，或输入命令…" autocomplete="off" spellcheck="false" />
+        <button class="cmdk-esc" type="button" data-cmdk-close>ESC</button>
+      </div>
+      <div class="cmdk-results" id="cmdk-results"></div>
+      <div class="cmdk-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+        <span><kbd>↵</kbd> 打开</span>
+        <span><kbd>ESC</kbd> 关闭</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
